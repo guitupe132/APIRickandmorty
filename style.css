@@ -1,0 +1,89 @@
+@font-face {
+    font-family: 'Schwifty';
+    src: url('get_schwifty.ttf') format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: linear-gradient(90deg, #F96EFD, #FC63B6, #FA6EFA, #FD65BA);
+    color: white;
+    height: 100%;
+    color: #B6E1EC;
+}
+
+.cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+    background-image: url('./LSD.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Schwifty', sans-serif;
+    color: #370b38;
+}
+
+.personagem {
+    width: 30%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.personagem > img {
+    width: 45%;
+}
+
+.pesquisa {
+    display: flex;
+}
+
+input {
+    text-align: center;
+    border: none;
+    padding: 25px;
+    border-radius: 10px 0 0 10px;
+    font-size: 20px;
+}
+
+button {
+    text-align: center;
+    border: none;
+    padding: 25px;
+    border-radius: 0 10px 10px 0;
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
+
+button:focus {
+    outline: none;
+    border: none;
+}
+
+#issoai {
+    margin: 25px;
+    text-align: center;
+}
+
+img {
+    width: 90%;
+}
+
+li {
+    margin: 25px 0 50px 0;
+    display: inline-block;
+    text-align: center;
+    list-style: none;
+    font-size: 25px;
+}

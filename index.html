@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Ainda nada</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        
+        <div class="cabecalho">
+            <div id="detalhes" class="personagem"> 
+                <h1 id="nomec">Rick Sanchez</h1>
+                <img id="imagemc" src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"/>
+                <p><strong>Espécie:</strong> <span id="especies"></span></p>
+                <p><strong>Status:</strong> <span id="status"></span></p>
+                <p><strong>Origem:</strong> <span id="origem"></span></p>
+                <p><strong>Localização:</strong> <span id="localizacao"></span></p>
+            </div>
+            <div class="pesquisa">
+                    <input type="text" id="txtBusca" placeholder="Buscar..." />
+                    <button id="buscar">Buscar</button>
+            </div>
+        </div>
+
+        <hr>
+
+        <h1 id="issoai">Lista de Personagens</h1>
+
+        <div id="lista-caixa">
+            <ul id="lista" class="lista-personagens"></ul>
+            <h1 id="nome"></h1>
+            <img id="imagem" src=""/>
+        </div>
+
+        
+
+    <script>
+
+        const listaPersonagens = document.getElementById("lista");
+        const button = document.getElementById("buscar");
+        const input = document.getElementById("txtBusca");
+
+        const persNome = document.getElementById("nome");
+        const persImagem = document.getElementById("imagem");
+        const persGrande = document.getElementById("personagem");
+        const persDetalhes = document.getElementById("detalhes");
+        const persoNome = document.getElementById("nomec");
+        const persoImagem = document.getElementById("imagemc");
+        const persEspecie = document.getElementById("especies");
+        const persStatus = document.getElementById("status");
+        const persOrigem = document.getElementById("origem");
+        const persLocalizacao = document.getElementById("localizacao");
+
+        let allPers = [];
+
+        function fetchPersonagens(page = 1) {
+            fetch(`https://rickandmortyapi.com/api/character/?page=${page}`).then(response => response.json()).then(data => {
+                    
+                    allPers = [...allPers, ...data.results];
+
+                    displayCharacters(allPers);
+
+                    if (data.info.next) {
+                        fetchPersonagens(page + 1);
+                    }
+                })
+                .catch(error => console.error("Pare de inventar nomes:", error));
+        }
+
+        function displayCharacters(characters) {
+            listaPersonagens.innerHTML = "";
+
+            characters.forEach(character => {
+                const li = document.createElement("li");
+                const img = document.createElement("img");
+                const name = document.createElement("div");
+
+                img.src = character.image;
+                name.textContent = character.name;
+
+                li.appendChild(img);
+                li.appendChild(name);
+                listaPersonagens.appendChild(li);
+
+                li.addEventListener("click", () => showCharacterDetails(character));
+
+            });
+        }
+
+        function showCharacterDetails(character) {
+            persoNome.textContent = character.name;
+            persoImagem.src = character.image;
+            persEspecie.textContent = character.species;
+            persStatus.textContent = character.status;
+            persOrigem.textContent = character.origin.name;
+            persLocalizacao.textContent = character.location.name;
+
+            persGrande.style.display = "block";
+        }
+
+        function buscarPersonagem() {
+            const searchTerm = input.value.trim().toLowerCase();
+            input.value = "";
+            const filteredCharacters = allPers.filter(character =>
+                character.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredCharacters.length > 0) {
+                displayCharacters(filteredCharacters);
+            } else {
+                listaPersonagens.innerHTML = "<li>Pare de inventar nomes:</li>";
+            }
+        }
+
+        button.addEventListener("click", buscarPersonagem);
+
+        fetchPersonagens();
+     
+     </script>    
+
+    </body>
+</html>
